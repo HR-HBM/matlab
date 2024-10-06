@@ -70,7 +70,7 @@ ylabel('Normalized magnitude');
 %design filter
 fs = 1000;
 fc = 12;
-N =4; %define specification of the filter - filter order
+N = 4; %define specification of the filter - filter order
 Wn = fc/(fs/2); %normalized cut-off frequency
 [b, a] = butter(N, Wn, 'low'); %b design lowpass butterworth filter
 freqz(b,a,1024,fs); %visualize the frequency
