@@ -109,8 +109,6 @@ ylabel('Amplitude');
  
 
 
-#form link
-https://docs.google.com/forms/d/1AU00wx_0nrh6wVZi5IoRivx5RKCnOPIp6tQ9GzaZloA/edit?usp=drivesdk&chromeless=1
 
 
 
