@@ -1,1 +1,43 @@
 (* clc to clear terminal *)
+#plot sine wave
+
+fs = 1000;
+Ts = 1/fs;
+L = 1000;
+t = (0:L-1)*Ts;
+A = 3;
+f = 10;
+P = pi/2;
+x = A*sin((2*pi*f*t)+(pi/2));
+figure;
+plot(t,x);
+title('Original Signal');
+title('Original Signal'); 
+xlabel('Time(ms)');
+ylabel('Amplitude(V)')
+%xlim ([0,1]);
+
+% frequency spectrum of x
+
+F = fft(x); % discrete ...........
+F = abs(F); %magnitude of fft
+F = F/max(F); %get normalized magnitude
+figure;
+plot(F);
+title('Frequency spectrum of x');
+xlabel('frequency (Hz)');
+ylabel('Normalized magnitude')
+
+noise = 0.2*randn(size(t));
+figure;
+plot(noise);
+title('Noise');
+xlabel('Time(ms)');
+ylabel('Amplitude(V)')
+
+noisy_signal = x+noise;
+figure;
+plot(noisy_signal);
+title('Noisy Signal');
+xlabel('Time(ms)');
+ylabel('Amplitude(V)')
