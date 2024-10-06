@@ -19,7 +19,7 @@ ylabel('Amplitude(V)')
 
 % frequency spectrum of x
 
-F = fft(x); % discrete ...........
+F = fft(x); % discrete fourier transfer of x
 F = abs(F); %magnitude of fft
 F = F/max(F); %get normalized magnitude
 figure;
@@ -41,3 +41,15 @@ plot(noisy_signal);
 title('Noisy Signal');
 xlabel('Time(ms)');
 ylabel('Amplitude(V)')
+
+%frequency transform of noisy signal
+
+F1 = fft(noisy_signal); % discrete fourier transfer of noisy signal
+F1 = abs(F1); %magnitude of fft
+F1 = F1/max(F1); %get normalized magnitude
+figure;
+plot(F1);
+title('Frequency spectrum of noisy signal');
+xlabel('frequency (Hz)');
+ylabel('Normalized magnitude')
+
