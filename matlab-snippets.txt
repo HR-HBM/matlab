@@ -1,0 +1,85 @@
+(* clc to clear terminal *)
+#plot sine wave
+
+fs = 1000;
+Ts = 1/fs;
+L = 1000;
+t = (0:L-1)*Ts;
+A = 3;
+f = 10;
+P = pi/2;
+x = A*sin((2*pi*f*t)+(pi/2));
+figure;
+plot(t,x);
+title('Original Signal');
+title('Original Signal'); 
+xlabel('Time(ms)');
+ylabel('Amplitude(V)');
+%xlim ([0,1]);
+
+% frequency spectrum of x
+
+F = fft(x); % discrete fourier transfer of x
+F = abs(F); %magnitude of fft
+F = F/max(F); %get normalized magnitude
+figure;
+plot(F);
+title('Frequency spectrum of x');
+xlabel('frequency (Hz)');
+ylabel('Normalized magnitude');
+
+noise = 0.2*randn(size(t));
+figure;
+plot(noise);
+title('Noise');
+xlabel('Time(ms)');
+ylabel('Amplitude(V)');
+
+noisy_signal = x+noise;
+figure;
+plot(noisy_signal);
+title('Noisy Signal');
+xlabel('Time(ms)');
+ylabel('Amplitude(V)');
+
+%frequency transform of noisy signal
+
+F1 = fft(noisy_signal); % discrete fourier transfer of noisy signal
+F1 = abs(F1); %magnitude of fft
+F1 = F1/max(F1); %get normalized magnitude
+figure;
+plot(F1);
+title('Frequency spectrum of noisy signal');
+xlabel('frequency (Hz)');
+ylabel('Normalized magnitude');
+
+
+F1 = fft(noisy_signal); % discrete fourier transfer of noisy signal
+P1 = abs(F1/L); %two sided magnitude of fft
+P2 = P1(1:L/2+1); %single sided magnitude spectrum
+P2(2:end-1) = 2*P2(2:end-1); %adjust magnitude of single side spectrum
+f = fs*(0:(L/2))/L; %create frequency axis of 
+figure;
+plot(f, P2);
+title('single-sided frequency spectrum of noisy signal');
+xlabel('frequency (Hz)');
+ylabel('Normalized magnitude');
+%xlim([0 500])
+
+
+%design filter
+fs = 1000;
+fc = 12;
+N =4; %define specification of the filter - filter order
+Wn = fc/(fs/2); %normalized cut-off frequency
+[b, a] = butter(N, Wn, 'low'); %b design lowpass butterworth filter
+freqz(b,a,1024,fs); %visualize the frequency
+
+
+%design filter
+fs = 1000;
+fc = 12;
+N =10; %define specification of the filter - filter order
+Wn = fc/(fs/2); %normalized cut-off frequency
+[b, a] = butter(N, Wn, 'low'); %b design lowpass butterworth filter
+freqz(b,a,1024,fs); %visualize the frequency
