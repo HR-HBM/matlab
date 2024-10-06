@@ -1,0 +1,65 @@
+load('rec_1m.mat');
+ecg = val(1,:);
+figure;
+plot(ecg);
+title('ECG Signal');
+xlabel('Time(ms)');
+ylabel('Amplitude(mV)');
+
+%frequency spectrum of the EEG signal
+F = fft(ecg);
+F = abs(F);
+F = F/max(F);
+fs = 1000;
+figure;
+plot(F);
+
+% frequemncy spectrum of EEG signal
+F = fft(ecg);
+F = abs(F);
+F = F/max(F); %normalized frequency
+figure;
+plot(F);
+xlim([0 800]);
+title('nomalized magnitude spectrum of EEG signal');
+xlabel('Frequency (Hz)');
+ylabel('Normalized magnitude');
+
+figure;
+plot(ecg);
+findpeaks(ecg);
+findpeaks(ecg, fs, 'MinpeakDistance', 0.6);
+
+
+%find R peaks in the ecg signal
+[~,locs]= findpeaks(ecg,fs,'Minpeakdistance', 0.6);
+
+
+%calculate the RR intervals(in seconds)
+RR_interval = diff(locs); % difference between consecutive R phase
+
+%plot RR intervals
+figure;
+plot(RR_interval);
+title('RR Intervals');
+xlabel('Beat Number')
+ylabel('RR intervals(s)')
+
+%calculate BPM
+BPM =  60 ./ RR_interval;
+figure;
+plot(BPM);
+title('Instantaneous BPM from ECG');
+xlabel('Beat Number')
+ylabel('BPM')
+
+average_BPM = mean(BPM);
+disp(average_BPM);
+
+mean_rr = mean(RR_interval);
+std_rr = std(RR_interval);
+median_rr = median(RR_interval);
+
+disp(['Mean of RR interval: ' num2str(mean_rr) 'seconds']);
+disp(['Standard Deviation of RR interval: ' num2str(std_rr) 'seconds']);
+disp(['Median of RR interval: ' num2str(median_rr) 'seconds']);

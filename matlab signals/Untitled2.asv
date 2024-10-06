@@ -1,0 +1,16 @@
+load('chb01_01_edfm.mat');
+eeg = val(1,:);
+figure;
+plot(eeg);
+title('EEG Signal');
+xlabel('Time(ms)');
+ylabel('Amplitude(mV)');
+
+%frequency signal of the EEG signal
+F = fft(eeg);
+F = abs(F);
+F = F/max(F);
+figure;
+plot(F);
+
+% frequemncy spectrum of EEG signal
