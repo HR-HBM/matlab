@@ -42,7 +42,7 @@ title('Noisy Signal');
 xlabel('Time(ms)');
 ylabel('Amplitude(V)');
 
-%frequency transform of noisy signal
+%frequency spectrum of noisy signal
 
 F1 = fft(noisy_signal); % discrete fourier transfer of noisy signal
 F1 = abs(F1); %magnitude of fft
